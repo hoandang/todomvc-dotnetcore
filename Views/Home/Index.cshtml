@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="todo">
+
+  <task-form></task-form>
+
+  <tasks></tasks>
+</div>
+
+@section Scripts
+{
+  <script>
+  window.__SHARE__ = {
+    TASKS: @Html.Raw(Json.Serialize(ViewBag.Tasks.ToArray()))
+  };
+  </script>
+  <script src="~/js/vendor.js"></script>
+  <script src="http://localhost:8080/wwwroot/js/app.js" asp-append-version="true"></script>
+}
