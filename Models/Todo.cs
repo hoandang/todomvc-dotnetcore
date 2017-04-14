@@ -54,7 +54,7 @@ namespace DotNetTodoList.Models
       _context.SaveChanges();
     }
 
-    private Todo GetItem(int id)
+    public Todo GetItem(int Id)
     {
       return _context.Items.FirstOrDefault(item => item.Id == Id);
     }

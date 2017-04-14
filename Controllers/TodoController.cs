@@ -28,5 +28,29 @@ namespace DotNetTodoList.Controllers
 
       return Created($"api/todo/{item.Id}", item);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+      if (_todo.GetItem(id) == null) return NotFound();
+
+      _todo.Remove(id);
+      return new NoContentResult();
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, [FromBody] Todo item)
+    {
+      if (item == null || item.Id != id) return BadRequest();
+
+      var task = _todo.GetItem(id);
+      if (task == null) return NotFound();
+
+      task.isComplete = item.isComplete;
+      task.Name = item.Name;
+
+      _todo.Update(task);
+      return new NoContentResult();
+    }
   }
 }

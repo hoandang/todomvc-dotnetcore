@@ -1,12 +1,13 @@
 import Vue from 'vue';
-import _ from 'lodash';
 import axios from 'axios';
+import _ from 'lodash';
 import store from './Store';
 import Tasks from './components/Tasks.vue';
 import TaskForm from './components/TaskForm.vue';
+import TaskFooter from './components/TaskFooter.vue';
 
-window._ = _;
 window.axios = axios;
+window._ = _;
 
 new Vue({
 
@@ -15,6 +16,6 @@ new Vue({
   el: '#todo',
 
   components: {
-    Tasks, TaskForm
+    Tasks, TaskForm, TaskFooter
   }
 });
