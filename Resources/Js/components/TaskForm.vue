@@ -16,19 +16,16 @@ export default {
   },
   methods: {
     addNewTask() {
+
       const data = {
-        id: Math.floor(Date.now() / 1000),
         name: this.taskName,
         isComplete: false
       };
 
-      this.$store.commit('addTask', {data});
-      this.taskName = '';
-
       axios.post('/api/todo', data).then(response => {
-        const newTaskId = response.data.id;
-        const oldTaskId = data.id;
-        this.$store.commit('updateTaskId', {oldTaskId, newTaskId});
+        data.id = response.data.id;
+        this.$store.commit('addTask', {data});
+        this.taskName = '';
       });
     }
   } 

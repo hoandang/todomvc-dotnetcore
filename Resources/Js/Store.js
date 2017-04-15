@@ -4,7 +4,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  tasks: __SHARE__.TASKS
+  tasks: __SHARE__.TASKS,
+  route: 'all'
 };
 
 const mutations = {
@@ -17,9 +18,11 @@ const mutations = {
   toggleTask(state, {task}) {
     task.isComplete = !task.isComplete;
   },
-  updateTaskId(state, {oldTaskId, newTaskId}) {
-    const foundTask = getTask(oldTaskId);
-    foundTask.id = newTaskId;
+  setRoute(state, {route}) {
+    state.route = route;
+  },
+  removeCompletedTasks(state) {
+    state.tasks = state.tasks.filter(task => !task.isComplete);
   }
 };
 

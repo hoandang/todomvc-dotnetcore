@@ -1,12 +1,14 @@
 <template>
-<footer class="task-footer">
-  <span class="task-footer__count">{{remainingTasks}} {{ remainingTasks | pluralize('item') }} left</span>
+<footer class="task-footer" v-show="hasTasks">
+  <span class="task-footer__count">{{remainingTasks}} {{ remainingTasks | pluralise('item') }} left</span>
   <ul class="task-footer__filter">
-    <li> <a href="#">All</a> </li>
-    <li> <a href="#">Active</a> </li>
-    <li> <a href="#">Completed</a> </li>
+    <li> <a :class="{selected: visibility == 'all'}" href="#/all">All</a> </li>
+    <li> <a :class="{selected: visibility == 'active'}" href="#/active">Active</a> </li>
+    <li> <a :class="{selected: visibility == 'completed'}" href="#/completed">Completed</a> </li>
   </ul>
-  <button class="task-footer__clear-completed">Clear completed</button>
+  <button class="task-footer__clear-completed" v-show="tasks.length > remainingTasks" @click="clearCompletedTasks">
+    Clear completed
+  </button>
 </footer>
 </template>
 
@@ -18,11 +20,25 @@ export default {
     },
     remainingTasks() {
       return this.tasks.filter(task => !task.isComplete).length;
+    },
+    completedTasks() {
+      return this.tasks.filter(task => task.isComplete);
+    },
+    hasTasks() {
+      return this.tasks.length > 0;
+    },
+    visibility() {
+      return this.$store.state.route;
     }
   },
-  filters: {
-    pluralize: (n, w) => n === 1 ? w : (w + 's'),
-    capitalize: s => s.charAt(0).toUpperCase() + s.slice(1)
+  methods: {
+    clearCompletedTasks() {
+      _.map(this.completedTasks, 'id').forEach(id => {
+        axios.delete(`api/todo/${id}`);
+      });
+
+      this.$store.commit('removeCompletedTasks');
+    }
   }
 }
 </script>
@@ -83,7 +99,6 @@ export default {
 }
 
 .task-footer__clear-completed {
-  display: none;
   float: right;
   line-height: 20px;
   text-decoration: none;

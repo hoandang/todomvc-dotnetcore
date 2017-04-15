@@ -1,7 +1,7 @@
 <template>
 <div class="tasks">
   <ul>
-    <li class="task" v-for="task in tasks">
+    <li class="task" v-for="task in filteredTasks">
       <input class="task__toggle" type="checkbox" :checked="task.isComplete" @change="toggle(task)">
       <span class="task__name" :class="{'task--completed': task.isComplete}">{{task.name}}</span>
       <button class="task__destroy" @click="remove(task)"></button>
@@ -15,17 +15,27 @@ export default {
   computed: {
     tasks() {
       return this.$store.state.tasks;
+    },
+    filteredTasks() {
+      return this.filters()[this.$store.state.route];
     }
   },
 
   methods: {
     remove(task) {
-      this.$store.commit('removeTask', {task});
       axios.delete(`/api/todo/${task.id}`);
+      this.$store.commit('removeTask', {task});
     },
     toggle(task) {
-      this.$store.commit('toggleTask', {task});
       axios.put(`api/todo/${task.id}`, task);
+      this.$store.commit('toggleTask', {task});
+    },
+    filters() {
+      return {
+        all: this.tasks,
+        completed: this.tasks.filter(task => task.isComplete),
+        active: this.tasks.filter(task => !task.isComplete)
+      };
     }
   }
 }
@@ -54,16 +64,17 @@ export default {
 }
 
 .task__toggle {
- height: 40px;
- background: none;
- text-align: center;
- width: 40px;
- position: absolute;
- top: 0;
- bottom: 0;
- margin: auto 0;
- border: none;
- -webkit-appearance: none;
+  height: 40px;
+  background: none;
+  text-align: center;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
 .task__toggle:checked:after {
