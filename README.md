@@ -8,8 +8,8 @@
 - dotnet build
 - dotnet run
 
-## Dev Backend
+### Dev Backend
 - dotnet run watch
 
-## Dev Frontend
+### Dev Frontend
 - npm run dev
