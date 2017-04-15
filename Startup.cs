@@ -5,9 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using DotNetTodoList.Models;
+using TodoMVC.Models;
 
-namespace DotNetTodoList
+namespace TodoMVC
 {
   public class Startup
   {

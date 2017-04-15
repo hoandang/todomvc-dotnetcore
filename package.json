@@ -6,9 +6,8 @@
     "serve": "http-server -s -c -1 -a localhost",
     "dev": "npm-run-all --parallel watch-js watch-css serve",
     "build-js": "cross-env NODE_ENV=production browserify -g envify Resources/Js/App.js | uglifyjs -c warnings=false -m > wwwroot/js/app.js",
-    "prebuild-css": "node-sass Resources/Sass/index.scss wwwroot/css/index.css",
-    "build-css": "postcss --use autoprefixer -b 'last 2 versions' < wwwroot/css/index.css | postcss --use cssnano > wwwroot/css/index.css",
-    "build": "npm-run-all --parallel build-js prebuild-css build-css"
+    "build-css": "node-sass --including-path scss --output-style compressed Resources/Sass/index.scss wwwroot/css/index.css",
+    "build": "npm-run-all --parallel build-js build-css"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",

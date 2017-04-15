@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DotNetTodoList.Models;
+using TodoMVC.Models;
 
-namespace DotNetTodoList.Controllers
+namespace TodoMVC.Controllers
 {
   public class HomeController : Controller
   {

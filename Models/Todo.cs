@@ -4,7 +4,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotNetTodoList.Models
+namespace TodoMVC.Models
 {
   public class Todo
   {
