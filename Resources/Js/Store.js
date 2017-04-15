@@ -23,6 +23,9 @@ const mutations = {
   },
   removeCompletedTasks(state) {
     state.tasks = state.tasks.filter(task => !task.isComplete);
+  },
+  toggleAllTasks(state, {value}) {
+    state.tasks.forEach(task => task.isComplete = value);
   }
 };
 

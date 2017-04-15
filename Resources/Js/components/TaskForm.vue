@@ -1,5 +1,6 @@
 <template>
 <form id="task-form" v-on:submit.prevent="addNewTask()">
+  <input class="task-form__toggle-all" type="checkbox" v-model="allDone" v-show="hasTasks">
   <input class="task-form__new-task" type="text" 
     autofocus="autofocus"
     autocomplete="off"
@@ -14,9 +15,28 @@ export default {
       taskName: ''
     }
   },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks;
+    },
+    hasTasks() {
+      return this.tasks.length > 0;
+    },
+    allDone: {
+      get() {
+        return _.filter(this.tasks, ['isComplete', false]).length == 0;
+      },
+      set(value) {
+        this.$store.commit('toggleAllTasks', {value});
+
+        this.tasks.forEach(task => {
+          axios.put(`api/todo/${task.id}`, task);
+        })
+      }
+    }
+  },
   methods: {
     addNewTask() {
-
       const data = {
         name: this.taskName,
         isComplete: false
@@ -48,5 +68,31 @@ export default {
   outline: none;
   box-sizing: border-box;
   font-smoothing: antialiased;
+}
+.task-form__toggle-all {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  width: 60px;
+  height: 34px;
+  text-align: center;
+  border: none;
+  top: 15px;
+  left: -5px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+}
+.task-form__toggle-all:before {
+  content: "❯";
+  font-size: 22px;
+  color: rgb(230, 230, 230);
+  padding: 10px 27px;
+}
+
+.task-form__toggle-all:checked:before {
+  color: #737373;
 }
 </style>
