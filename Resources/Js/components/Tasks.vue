@@ -2,8 +2,8 @@
 <div class="tasks">
   <ul>
     <li class="task" v-for="task in filteredTasks">
-      <input class="task__toggle" type="checkbox" :checked="task.isComplete" @change="toggle(task)">
-      <span class="task__name" :class="{'task--completed': task.isComplete}">{{task.name}}</span>
+      <input class="task__toggle" type="checkbox" :checked="task.isCompleted" @change="toggle(task)">
+      <span class="task__name" :class="{'task--completed': task.isCompleted}">{{task.name}}</span>
       <button class="task__destroy" @click="remove(task)"></button>
     </li>
   </ul>
@@ -33,8 +33,8 @@ export default {
     filters() {
       return {
         all: this.tasks,
-        completed: this.tasks.filter(task => task.isComplete),
-        active: this.tasks.filter(task => !task.isComplete)
+        completed: this.tasks.filter(task => task.isCompleted),
+        active: this.tasks.filter(task => !task.isCompleted)
       };
     }
   }

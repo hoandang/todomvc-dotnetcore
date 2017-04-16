@@ -16,16 +16,16 @@ const mutations = {
     state.tasks = _.reject(state.tasks, task);
   },
   toggleTask(state, {task}) {
-    task.isComplete = !task.isComplete;
+    task.isCompleted = !task.isCompleted;
   },
   setRoute(state, {route}) {
     state.route = route;
   },
   removeCompletedTasks(state) {
-    state.tasks = state.tasks.filter(task => !task.isComplete);
+    state.tasks = state.tasks.filter(task => !task.isCompleted);
   },
   toggleAllTasks(state, {value}) {
-    state.tasks.forEach(task => task.isComplete = value);
+    state.tasks.forEach(task => task.isCompleted = value);
   }
 };
 

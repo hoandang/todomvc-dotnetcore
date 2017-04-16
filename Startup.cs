@@ -71,7 +71,7 @@ namespace TodoMVC
         {
           db.Items.Add(new Todo {
             Name = "First Task",
-            isComplete = false
+            isCompleted = false
           });
           db.SaveChanges();
         }

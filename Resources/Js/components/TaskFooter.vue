@@ -19,10 +19,10 @@ export default {
       return this.$store.state.tasks;
     },
     remainingTasks() {
-      return this.tasks.filter(task => !task.isComplete).length;
+      return this.tasks.filter(task => !task.isCompleted).length;
     },
     completedTasks() {
-      return this.tasks.filter(task => task.isComplete);
+      return this.tasks.filter(task => task.isCompleted);
     },
     hasTasks() {
       return this.tasks.length > 0;

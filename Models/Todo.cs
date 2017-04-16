@@ -17,7 +17,7 @@ namespace TodoMVC.Models
     public string Name { get; set; }
 
     [Column("Content", TypeName = "tinyint")]
-    public bool isComplete { get; set; }
+    public bool isCompleted { get; set; }
 
     private readonly TodoContext _context;
 

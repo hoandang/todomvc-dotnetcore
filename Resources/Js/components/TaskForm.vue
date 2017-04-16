@@ -24,7 +24,7 @@ export default {
     },
     allDone: {
       get() {
-        return _.filter(this.tasks, ['isComplete', false]).length == 0;
+        return _.filter(this.tasks, ['isCompleted', false]).length == 0;
       },
       set(value) {
         this.$store.commit('toggleAllTasks', {value});
@@ -39,7 +39,7 @@ export default {
     addNewTask() {
       const data = {
         name: this.taskName,
-        isComplete: false
+        isCompleted: false
       };
 
       axios.post('/api/todo', data).then(response => {

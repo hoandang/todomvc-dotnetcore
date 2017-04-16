@@ -46,7 +46,7 @@ namespace TodoMVC.Controllers
       var task = _todo.GetItem(id);
       if (task == null) return NotFound();
 
-      task.isComplete = item.isComplete;
+      task.isCompleted = item.isCompleted;
       task.Name = item.Name;
 
       _todo.Update(task);
